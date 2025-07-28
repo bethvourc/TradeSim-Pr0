@@ -1,0 +1,65 @@
+{
+    "name": "TradeSim Pro Development",
+    "dockerFile": "../Dockerfile",
+    "target": "development",
+    "context": "..",
+    
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-python.python",
+                "ms-python.black-formatter",
+                "ms-python.flake8",
+                "ms-python.mypy-type-checker",
+                "ms-vscode.vscode-typescript-next",
+                "bradlc.vscode-tailwindcss",
+                "esbenp.prettier-vscode",
+                "ms-vscode.cmake-tools",
+                "twxs.cmake",
+                "ms-vscode.makefile-tools",
+                "ms-vscode.test-adapter-converter",
+                "hbenl.vscode-test-explorer",
+                "littlefoxteam.vscode-python-test-adapter"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/home/developer/.local/bin/python3",
+                "python.linting.enabled": true,
+                "python.linting.flake8Enabled": true,
+                "python.formatting.provider": "black",
+                "python.testing.pytestEnabled": true,
+                "python.testing.unittestEnabled": false,
+                "python.testing.pytestArgs": [
+                    "py"
+                ],
+                "cmake.configureOnOpen": true,
+                "cmake.buildDirectory": "${workspaceFolder}/build",
+                "cmake.generator": "Unix Makefiles",
+                "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+                "files.associations": {
+                    "*.hpp": "cpp",
+                    "*.cpp": "cpp",
+                    "*.h": "cpp",
+                    "*.c": "cpp"
+                }
+            }
+        }
+    },
+    
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    
+    "postCreateCommand": "echo 'TradeSim Pro development environment ready!'",
+    
+    "remoteUser": "developer",
+    
+    "mounts": [
+        "source=${localWorkspaceFolder}/.devcontainer/cache,target=/home/developer/.cache,type=bind"
+    ],
+    
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/developer/tradesim-pro,type=bind,consistency=cached",
+    "workspaceFolder": "/home/developer/tradesim-pro"
+} 

@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  tradesim-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: tradesim-pro-dev
+    volumes:
+      - .:/home/developer/tradesim-pro
+      - tradesim-cache:/home/developer/.cache
+    working_dir: /home/developer/tradesim-pro
+    environment:
+      - PYTHONPATH=/home/developer/tradesim-pro/py
+      - DISPLAY=${DISPLAY}
+    ports:
+      - "3000:3000" # GUI development server
+      - "8000:8000" # Python development server
+      - "8080:8080" # WebSocket server
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+  tradesim-gui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: tradesim-pro-gui
+    volumes:
+      - ./gui:/home/developer/tradesim-pro/gui
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    working_dir: /home/developer/tradesim-pro/gui
+    environment:
+      - DISPLAY=${DISPLAY}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - tradesim-dev
+    command: npm run dev
+
+volumes:
+  tradesim-cache:
